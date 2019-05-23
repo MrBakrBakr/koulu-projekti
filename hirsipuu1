@@ -1,0 +1,142 @@
+import java.util.Scanner;
+
+public class projecti {
+
+	
+
+	public static void main(String[] args) {
+		Scanner lukija = new Scanner(System.in);
+
+		System.out.println("Tervetuloa pelaamaan!");
+		System.out.println();
+		System.out.println("Syötä lauseen jota käytetään tässä pelissä :");
+		String lause = lukija.nextLine(); 
+		
+		lause = lause.replaceAll(" ", "  ");
+		lause = lause.toUpperCase();
+		String lause1 = lause.replaceAll("[A-Z,Ä,Ö]", "_ ");
+		
+		System.out.print("\n"); 
+		System.out.print("\n");
+		System.out.print("\n");
+		System.out.print("\n");
+		System.out.print("\n");
+		System.out.print("\n");
+		System.out.println("Pelaataan:");
+
+		int yritys = 0;
+		int väärää = 0;
+		String arvaus;
+		char kirjain;
+		boolean arvauksetsisältääarvaus;
+		String arvaukset = "" ;
+		boolean lausesisältääarvaus;
+		
+		while (väärää < 5 && lause1.contains("_")) {// toisto alkaa
+
+			System.out.println(lause1);
+			System.out.print("\n");
+			System.out.println("sinulla on " + väärää + " väärä yritys.");
+			System.out.print("\n");
+			if (väärää == 1) { // kuva 1
+				System.out.println("         ____________");
+				System.out.println("        |      |     |");
+				System.out.println("        |      O     |");
+				System.out.println("        |            |");
+				System.out.println("        |            |");
+				System.out.println("       	|            |");
+				System.out.println("         ____________");
+				System.out.print("\n");
+			} else if (väärää == 2) { // kuva 2
+				System.out.println("         ____________");
+				System.out.println("        |      |     |");
+				System.out.println("        |      O     |");
+				System.out.println("        |      |     |");
+				System.out.println("        |            |");
+				System.out.println("       	|            |");
+				System.out.println("         ____________");
+				System.out.print("\n");
+			} else if (väärää == 3) { // kuva 3
+				System.out.println("         ____________");
+				System.out.println("        |      |     |");
+				System.out.println("        |      O     |");
+				System.out.println("        |     -|-    |");
+				System.out.println("        |            |");
+				System.out.println("       	|            |");
+				System.out.println("         ____________");
+				System.out.print("\n");
+			} else if (väärää == 4) { //kuva 4
+				System.out.println("         ____________");
+				System.out.println("        |      |     |");
+				System.out.println("        |      O     |");
+				System.out.println("        |     -|-    |");
+				System.out.println("        |      |     |");
+				System.out.println("       	|            |");
+				System.out.println("         ____________");
+				System.out.print("\n");
+		}
+			System.out.println("arvaa kirjaimen:");
+			arvaus = lukija.nextLine(); // arvattu kirjain
+			arvaus = arvaus.toUpperCase(); // uppercaseihin
+			kirjain = arvaus.charAt(0); // ensimmäinen kirjain arvauksena
+
+			arvauksetsisältääarvaus = (arvaukset.indexOf(kirjain)) != -1;
+			arvaukset += kirjain; // talentaa jokainen arvattu kirjain arvauksissa 
+
+			kirjain = Character.toUpperCase(kirjain); // uppercaseihin
+			System.out.print("\n");
+			if (arvauksetsisältääarvaus == true) { // if lause alkaa
+				System.out.println("olet jo arvannut " + kirjain + ".");
+				System.out.print("\n");
+				if (väärää > 0) { // sisäinen if alkaa
+					väärää--;
+				} // sisäinen if loppuu
+
+			} 
+
+			lausesisältääarvaus = (lause.indexOf(kirjain)) != -1;
+			if (lausesisältääarvaus == true) { // if lause alkaa
+				System.out.println(kirjain + " on lauseessa.");
+				System.out.print("\n");
+				for (int sijainti = 0; sijainti < lause.length(); sijainti++) { // for alkaa
+					if (lause.charAt(sijainti) == kirjain && lause1.charAt(sijainti) != kirjain) {
+						// sisäinen if alkaa
+						lause1 = lause1.replaceAll("_ ", "_");
+						String lause2;
+						lause2 = lause1.substring(0, sijainti) + kirjain + lause1.substring(sijainti + 1);
+						lause2 = lause2.replaceAll("_", "_ ");
+						lause1 = lause2;
+					} // sisäinen if loppuu
+				} // for loppuu
+			} else { // if lause loppuu, else if alkaa
+				System.out.print("\n");
+				System.out.println(kirjain + " ei ole lauseessa."); // tulostaa
+				System.out.print("\n");
+				väärää++; // väärää = väärää + 1, jokaisen väärän vastauksen jälkeen
+			}
+
+			yritys++; // yrityksit = yritykset + 1, jokaisen yrityksen jälkeen
+
+		} // while toisto loppuu
+
+		if (väärää == 5) { // kuva 5
+			System.out.println("         ____________");
+			System.out.println("        |      |     |");
+			System.out.println("        |      O     |");
+			System.out.println("        |     -|-    |");
+			System.out.println("        |      |     |");
+			System.out.println("       	|     / \\    |");
+			System.out.println("         ____________");
+			System.out.print("\n");
+			System.out.println("Peli on loppunut. Sinulla on 5 väärää arvausta!");
+		} else {
+
+			System.out.println("Lause on:"); // oikea vastaus
+			System.out.println(lause1);
+			System.out.println("onneksi olkoon!");
+		}
+
+		lukija.close(); 
+	}
+
+}
